@@ -1,0 +1,16 @@
+# ignore ALL .log files
+*.log
+
+.idea/
+
+Delivery.zip
+
+Delivery/
+
+Delivery_withoutJAR.zip
+
+minigamebackend.iml
+
+old/
+	
+out/
