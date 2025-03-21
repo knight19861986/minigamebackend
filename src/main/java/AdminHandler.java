@@ -5,17 +5,18 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
 public class AdminHandler implements HttpHandler {
     private DataTables db;
-    private final Logger LOGGER = Logger.getLogger(this.getClass().getName());
+//    private final Logger LOGGER = Logger.getLogger(this.getClass().getName());
 
     public AdminHandler(DataTables db) {
         super();
         this.db = db;
     }
-    private String getCheck(String query){
+
+    private String getCheck(String query) {
         String res = "";
         if (query != null &&
                 !query.isEmpty()) {
@@ -31,9 +32,10 @@ public class AdminHandler implements HttpHandler {
         }
         return res;
     }
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        try{
+        try {
             String query = httpExchange.getRequestURI().getQuery();
             String check = getCheck(query);
 //            LOGGER.info("Query: " + query);
@@ -43,60 +45,27 @@ public class AdminHandler implements HttpHandler {
                 check = "index";
             switch (check) {
                 case "sessions":
-                    checkSessions(httpExchange);
+                    check(httpExchange, db.outputSessionTable());
                     break;
                 case "users":
-                    checkUsers(httpExchange);
+                    check(httpExchange, db.outputUserTable());
                     break;
                 case "boards":
-                    checkBoards(httpExchange);
+                    check(httpExchange, db.outputBoardTable());
                     break;
                 default:
-                    index(httpExchange);
+                    check(httpExchange, "Admin!");
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    private void index(HttpExchange httpExchange) throws Exception{
-        String response = "Admin!";
+    private void check(HttpExchange httpExchange, String response) throws Exception {
         httpExchange.sendResponseHeaders(200, 0);
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes(Utils.CHARSET));
         os.close();
-
-
     }
-
-    private void checkSessions(HttpExchange httpExchange) throws Exception{
-        String response = db.outputSessionTable();
-        httpExchange.sendResponseHeaders(200, 0);
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(response.getBytes(Utils.CHARSET));
-        os.close();
-
-
-    }
-
-    private void checkUsers(HttpExchange httpExchange) throws Exception{
-        String response = db.outputUserTable();
-        httpExchange.sendResponseHeaders(200, 0);
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(response.getBytes(Utils.CHARSET));
-        os.close();
-
-    }
-
-    private void checkBoards(HttpExchange httpExchange) throws Exception{
-        String response = db.outputBoardTable();
-        httpExchange.sendResponseHeaders(200, 0);
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(response.getBytes(Utils.CHARSET));
-        os.close();
-
-    }
-
 }

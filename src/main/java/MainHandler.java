@@ -31,7 +31,7 @@ public class MainHandler implements HttpHandler {
             String[] subPath = path.split("/");
             if (subPath.length == 3 &&
                    subPath[0].length() < 1 &&
-                    subPath[1].matches(Utils.REGEXOFNUM) &&
+                    subPath[1].matches(Utils.REGEX_NUM) &&
                     (!subPath[2].isEmpty())) {
 
                 if (subPath[2].equalsIgnoreCase("login")) {
@@ -145,7 +145,7 @@ public class MainHandler implements HttpHandler {
                 Headers requestHeaders = httpExchange.getRequestHeaders();
                 String bodyString = stringFromStream(httpExchange.getRequestBody());
 //                LOGGER.info("Request Body: " + bodyString);
-                if (bodyString.matches(Utils.REGEXOFNUM)) {
+                if (bodyString.matches(Utils.REGEX_NUM)) {
                     int score = Integer.valueOf(bodyString);
                     int userId = db.getUserIdBySession(sessionKey);
                     if (db.updateUserScore(userId, levelId, score)) {

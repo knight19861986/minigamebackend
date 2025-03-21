@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class Utils {
-    public static final String REGEXOFNUM = "^0|([1-9]\\d*)";
+    public static final String REGEX_NUM = "^0|([1-9]\\d*)";
     public static final String CHARSET = "ASCII";
 
     public static String timestampToDatetime(long timeMillis){
