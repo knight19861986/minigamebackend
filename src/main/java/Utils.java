@@ -23,7 +23,7 @@ public class Utils {
             StringBuilder stringBuilder = new StringBuilder();
             String str;
             while ((str = bufferedReader.readLine()) != null) {
-                stringBuilder.append(str);
+                stringBuilder.append(str).append('\n');
             }
             return stringBuilder.toString().trim();
         } else return "";

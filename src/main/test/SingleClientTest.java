@@ -1,6 +1,7 @@
 package main.test;
 
 import com.sun.net.httpserver.HttpServer;
+import main.java.AdminHandler;
 import main.java.DataTables;
 import main.java.MainHandler;
 import org.junit.jupiter.api.AfterEach;
@@ -42,6 +43,7 @@ class SingleClientTest {
 //        LOGGER.setUseParentHandlers(false);
         httpServer = HttpServer.create(new InetSocketAddress(address, port), 0);
         httpServer.createContext("/", new MainHandler(db));
+        httpServer.createContext("/admin",new AdminHandler(db));
         httpServer.setExecutor(null);
         httpServer.start();
     }
@@ -53,6 +55,7 @@ class SingleClientTest {
 
     @Test
     void uRITest() throws Exception{
+        assertGet("/admin", 200, "Admin!");
         assertGet("", 200, "Welcome!");
         assertGet("/", 200, "Welcome!");
         assertGet("/login", 200, "Welcome!");
@@ -77,6 +80,9 @@ class SingleClientTest {
         assertGet("/1/highscorelist", 200, "1=100");
         assertPost("/1/score?sessionkey=" + sessionKey,"200" ,200);
         assertGet("/1/highscorelist", 200, "1=200");
+        assertGet("/admin?check=sessions", 200, db.outputSessionTable());
+        assertGet("/admin?check=users", 200, db.outputUserTable());
+        assertGet("/admin?check=boards", 200, db.outputBoardTable());
     }
 
     private String assertGet(String path, int expectedCode)throws IOException {
@@ -94,7 +100,7 @@ class SingleClientTest {
 
     private void assertGet(String path, int expectedCode, String expectedResponseBody)throws IOException {
         String responseBody = assertGet(path, expectedCode);
-        assertEquals(expectedResponseBody, responseBody);
+        assertEquals(expectedResponseBody.trim(), responseBody);
     }
 
     private void assertPost(String path, String body, int expectedCode)throws IOException {

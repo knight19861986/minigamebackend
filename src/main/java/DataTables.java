@@ -125,27 +125,27 @@ public class DataTables {
     public String outputUserTable(){
         StringBuilder res = new StringBuilder();
         for(Map.Entry<Integer, User> entry:this.userTable.entrySet()){
-            res.append(entry.getValue().toString());
+            res.append(entry.getValue().toString()).append('\n');
 
         }
-        return res.toString();
+        return res.toString().trim();
     }
 
     public String outputSessionTable(){
         StringBuilder res = new StringBuilder();
         for(Map.Entry<String, Session> entry:this.sessionTable.entrySet()){
-            res.append(entry.getValue().toString());
+            res.append(entry.getValue().toString()).append('\n');
 
         }
-        return res.toString();
+        return res.toString().trim();
     }
 
     public String outputBoardTable(){
         StringBuilder res = new StringBuilder();
         for(Map.Entry<Integer, HighScoreBoard> entry:this.boardTable.entrySet()){
-            res.append(entry.getValue().toString());
+            res.append(entry.getValue().toString()).append('\n');
 
         }
-        return res.toString();
+        return res.toString().trim();
     }
 }
