@@ -14,7 +14,7 @@ public class HighScoreBoard {
 
     public HighScoreBoard(int levelId) {
         this.levelId = levelId;
-        this.topScoreUsers = Collections.synchronizedList(new ArrayList<User> ());
+        this.topScoreUsers = Collections.synchronizedList(new ArrayList<User>());
     }
 
     private boolean userIsHigherThan(User user1, User user2) {
@@ -28,23 +28,23 @@ public class HighScoreBoard {
     }
 
     /*******************************************************************************************************************
-    Core method of sorting users in the list:
-    * Sorting when inserting/updating;
-    * First check if the user is in the list:
-    ** If yes, find the rank of the user, then compare with others who are before him from lower rank to higher
-    ** If no, add the user at the end of the list, then compare with others who are before him from lower rank to higher
-    * If the users is higher than the compared user, then swap them
-    * The complexity should be O(n) for twice:
-    ** First to find the rank of the user: O(n), n<=15
-    ** Second to compare and swap: O(n), n<=15
-    * If the size of list is larger than 15, remove the last user
-    *******************************************************************************************************************/
+     Core method of sorting users in the list:
+     * Sorting when inserting/updating;
+     * First check if the user is in the list:
+     ** If yes, find the rank of the user, then compare with others who are before him from lower rank to higher
+     ** If no, add the user at the end of the list, then compare with others who are before him from lower rank to higher
+     * If the users is higher than the compared user, then swap them
+     * The complexity should be O(n) for twice:
+     ** First to find the rank of the user: O(n), n<=15
+     ** Second to compare and swap: O(n), n<=15
+     * If the size of list is larger than 15, remove the last user
+     *******************************************************************************************************************/
     public void updateBoard(User user) {
         if (user != null) {
             if (topScoreUsers.size() > 0) {
                 int startPoint = topScoreUsers.size() - 1;
                 int userRank = userRankInBoard(user);
-                if(userRank == 0)
+                if (userRank == 0)
                     return;
                 if (userRank > 0)
                     startPoint = userRank - 1;
@@ -72,10 +72,10 @@ public class HighScoreBoard {
         }
     }
 
-    private int userRankInBoard(User user){
+    private int userRankInBoard(User user) {
         int res = -1;
-        for(int i = 0; i < topScoreUsers.size(); i++){
-            if(topScoreUsers.get(i).getUserId() == user.getUserId()){
+        for (int i = 0; i < topScoreUsers.size(); i++) {
+            if (topScoreUsers.get(i).getUserId() == user.getUserId()) {
                 res = i;
                 break;
             }
@@ -83,23 +83,23 @@ public class HighScoreBoard {
         return res;
     }
 
-    public String getCSV(){
+    public String getCSV() {
         StringBuilder res = new StringBuilder();
-        for(User user:this.topScoreUsers){
+        for (User user : this.topScoreUsers) {
             res.append(user.getUserId());
             res.append("=");
             res.append(user.getScore(this.levelId));
             res.append(",");
         }
-        res.deleteCharAt(res.length()-1);
+        res.deleteCharAt(res.length() - 1);
         return res.toString();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder res = new StringBuilder();
         res.append("LevelId: " + levelId + "\n");
-        for(User user: this.topScoreUsers){
+        for (User user : this.topScoreUsers) {
             res.append("UserId: " + user.getUserId() + " ->");
             res.append("Score: " + user.getScore(this.levelId) + "\n");
         }
