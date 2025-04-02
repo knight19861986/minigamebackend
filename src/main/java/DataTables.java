@@ -1,5 +1,9 @@
 package main.java;
 
+import main.java.model.HighScoreBoard;
+import main.java.model.Session;
+import main.java.model.User;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

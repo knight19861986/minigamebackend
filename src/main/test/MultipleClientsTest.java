@@ -2,7 +2,7 @@ package main.test;
 
 import com.sun.net.httpserver.HttpServer;
 import main.java.DataTables;
-import main.java.MainHandler;
+import main.java.handlers.MainHandler;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

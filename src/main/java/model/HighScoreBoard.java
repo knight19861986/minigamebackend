@@ -1,4 +1,6 @@
-package main.java;
+package main.java.model;
+
+import main.java.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

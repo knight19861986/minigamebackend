@@ -1,4 +1,6 @@
-package main.java;
+package main.java.model;
+
+import main.java.Utils;
 
 import java.util.UUID;
 

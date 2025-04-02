@@ -1,7 +1,7 @@
 package main.test;
 
-import main.java.HighScoreBoard;
-import main.java.User;
+import main.java.model.HighScoreBoard;
+import main.java.model.User;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
