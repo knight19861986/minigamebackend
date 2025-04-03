@@ -32,7 +32,7 @@ public class MainHandler implements HttpHandler {
                 !path.isEmpty()) {
             String[] subPath = path.split("/");
             if (subPath.length == 3 &&
-                   subPath[0].length() < 1 &&
+                    subPath[0].length() < 1 &&
                     subPath[1].matches(Utils.REGEX_NUM) &&
                     (!subPath[2].isEmpty())) {
 

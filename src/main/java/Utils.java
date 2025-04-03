@@ -11,7 +11,7 @@ public class Utils {
     public static final String REGEX_NUM = "^0|([1-9]\\d*)";
     public static final String CHARSET = "ASCII";
 
-    public static String timestampToDatetime(long timeMillis){
+    public static String timestampToDatetime(long timeMillis) {
         Timestamp timestamp = new Timestamp(timeMillis);
         Date date = new Date(timestamp.getTime());
         return date.toString();

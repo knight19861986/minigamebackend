@@ -17,9 +17,9 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
         DataTables db = new DataTables();
-        HttpServer httpServer = HttpServer.create(new InetSocketAddress(address, port),0);
-        httpServer.createContext("/",new MainHandler(db));
-        httpServer.createContext("/admin",new AdminHandler(db));
+        HttpServer httpServer = HttpServer.create(new InetSocketAddress(address, port), 0);
+        httpServer.createContext("/", new MainHandler(db));
+        httpServer.createContext("/admin", new AdminHandler(db));
         httpServer.setExecutor(Executors.newFixedThreadPool(capacity));
         httpServer.start();
     }

@@ -13,15 +13,15 @@ public class Session {
         UUID uuid = UUID.randomUUID();
         this.sessionId = uuid.toString();
         this.user = user;
-        this.expiryTime = System.currentTimeMillis() + 1000*60*10;
+        this.expiryTime = System.currentTimeMillis() + 1000 * 60 * 10;
     }
 
-    private void visited(){
-        this.expiryTime = System.currentTimeMillis() + 1000*60*10;
+    private void visited() {
+        this.expiryTime = System.currentTimeMillis() + 1000 * 60 * 10;
 
     }
 
-    public int getUserId(){
+    public int getUserId() {
         this.visited();
         return this.user.getUserId();
     }
@@ -36,7 +36,7 @@ public class Session {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder res = new StringBuilder();
         res.append("SessionId: " + sessionId + "\n");
         res.append("UserId: " + user.getUserId() + "\n");
