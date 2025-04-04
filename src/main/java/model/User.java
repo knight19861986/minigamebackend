@@ -27,9 +27,7 @@ public class User {
     }
 
     public int getScore(int levelId) {
-        if (this.scores.containsKey(levelId)) {
-            return scores.get(levelId);
-        } else return -1;
+        return scores.getOrDefault(levelId, -1);
     }
 
     public void setScore(int levelId, int score) {

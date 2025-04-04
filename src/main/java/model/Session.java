@@ -39,6 +39,7 @@ public class Session {
 
     @Override
     public String toString() {
+        sb.setLength(0);
         sb.append("SessionId: " + sessionId + "\n");
         sb.append("UserId: " + user.getUserId() + "\n");
         sb.append("ExpiryTime: " + Utils.timestampToDatetime(expiryTime) + "\n" + "\n");
