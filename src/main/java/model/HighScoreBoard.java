@@ -5,15 +5,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+//import java.util.stream.Collectors;
+//import java.util.stream.IntStream;
 
 public class HighScoreBoard {
 
     private int levelId;
     private final int boardMaxSize = 15;
     private final List<User> topScoreUsers;
-    private Map<Integer, Integer> topScoreUserRanks;
+    private final Map<Integer, Integer> topScoreUserRanks;
     private final StringBuilder sb;
 
     public HighScoreBoard(int levelId) {
@@ -80,9 +80,15 @@ public class HighScoreBoard {
     }
 
     private void UpdateRankMap() {
+        /**************************************************************************************************************
+        Dropped stream-based solution considering memory-efficiency: (Time complexity is the same: O(n))
         topScoreUserRanks = IntStream.range(0, topScoreUsers.size())
                 .boxed()
                 .collect(Collectors.toMap(i -> topScoreUsers.get(i).getUserId(), i -> i));
+         **************************************************************************************************************/
+        for (int i = 0; i < topScoreUsers.size(); i++) {
+            topScoreUserRanks.put(topScoreUsers.get(i).getUserId(), i);
+        }
     }
 
     private int userRankInBoard(User user) {
