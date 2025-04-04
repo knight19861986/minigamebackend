@@ -49,12 +49,37 @@ class HighScoreBoardTest {
     void updateBoard() {
         for (int i = 0; i < loopAmount; i++) {
             for (User user : users) {
-                int score = (int) (Math.random() * scoreRange/(loopAmount+1)*2 + scoreRange/(loopAmount+1)*i);
+                int score = (int) (Math.random() * scoreRange / (loopAmount + 1) * 2 + scoreRange / (loopAmount + 1) * i);
                 user.setScore(levelId, score);
                 HSB.updateBoard(user);
                 LOGGER.info("User " + user.getUserId() + " scores " + score);
                 LOGGER.info(HSB.toString());
             }
         }
+        Assertions.assertEquals(15, HSB.getTopScoreUsers().size());
+        Assertions.assertTrue(sortedCorrectly());
+        Assertions.assertFalse(hasDuplicatedUsers());
+    }
+
+    private boolean sortedCorrectly() {
+        for (int i = 0; i < HSB.getTopScoreUsers().size() - 1; i++) {
+            if (HSB.getTopScoreUsers().get(i).getScore(levelId) < HSB.getTopScoreUsers().get(i+1).getScore(levelId))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean hasDuplicatedUsers() {
+        for (int i = 0; i < HSB.getTopScoreUsers().size(); i++) {
+            for (int j = i + 1; j < HSB.getTopScoreUsers().size(); j++) {
+                if (HSB.getTopScoreUsers().get(i).getUserId() == HSB.getTopScoreUsers().get(j).getUserId()) {
+                    LOGGER.info("Duplicated Users found: user "
+                            + HSB.getTopScoreUsers().get(i).getUserId()
+                            + " at rank " + i + " and rank " + j);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
