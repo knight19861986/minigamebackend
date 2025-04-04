@@ -43,6 +43,7 @@ public class HighScoreBoard {
         //If the list is empty, add the user directly
         if (topScoreUsers.isEmpty()) {
             topScoreUsers.add(user);
+            UpdateRankMap();
             return;
         }
         //Check if the user is in the list, return -1 means not in the list
