@@ -84,10 +84,6 @@ public class HighScoreBoard {
                 .collect(Collectors.toMap(i -> topScoreUsers.get(i).getUserId(), i -> i));
     }
 
-    /*******************************************************************************************************************
-     To get the rank in board of a user:
-     Binary search applied
-     *******************************************************************************************************************/
     private int userRankInBoard(User user) {
         return topScoreUserRanks.getOrDefault(user.getUserId(), -1);
     }
