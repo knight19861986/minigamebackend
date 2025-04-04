@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static main.java.Utils.stringFromStream;
-//import java.util.concurrent.ConcurrentHashMap;
 
 public class MainHandler implements HttpHandler {
     private DataTables db;
@@ -100,7 +99,6 @@ public class MainHandler implements HttpHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private void welcome(HttpExchange httpExchange) throws Exception {
@@ -114,9 +112,6 @@ public class MainHandler implements HttpHandler {
     private void login(HttpExchange httpExchange) throws Exception {
         if ("GET".equals(httpExchange.getRequestMethod())) {
             int userId = Integer.valueOf(analysedURI.get("userId"));
-            if (!db.userIsExisted(userId)) {
-                db.createUser(userId);
-            }
             String sessionId = db.createSession(userId);
             if (sessionId != null && !sessionId.isEmpty()) {
 //                LOGGER.info("UserId: " + userId);
@@ -184,10 +179,8 @@ public class MainHandler implements HttpHandler {
         if ("GET".equals(httpExchange.getRequestMethod())) {
             String response = "";
             int levelId = Integer.valueOf(analysedURI.get("levelId"));
-//            LOGGER.info("LevelId: " + levelId);
-            if (db.highScoreBoardIsExisted(levelId)) {
-                response = db.getHighScoreBoard(levelId);
-            }
+            response = db.getHighScoreBoard(levelId);
+
             httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
             os.write(response.getBytes(Utils.CHARSET));

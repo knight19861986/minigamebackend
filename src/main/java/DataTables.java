@@ -8,18 +8,19 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DataTables {
-    private Map<String, Session> sessionTable;
-    private Map<Integer, User> userTable;
-    private Map<Integer, HighScoreBoard> boardTable;
+    private final Map<String, Session> sessionTable;
+    private final Map<Integer, User> userTable;
+    private final Map<Integer, HighScoreBoard> boardTable;
+    private final StringBuilder sb;
 
     public DataTables() {
         this.sessionTable = new ConcurrentHashMap<String, Session>();
         this.userTable = new ConcurrentHashMap<Integer, User>();
         this.boardTable = new ConcurrentHashMap<Integer, HighScoreBoard>();
+        this.sb = new StringBuilder();
     }
 
-    public boolean userIsExisted(int userId) {
-
+    private boolean userIsExisted(int userId) {
         return this.userTable.containsKey(Integer.valueOf(userId));
     }
 
@@ -42,20 +43,9 @@ public class DataTables {
 
     }
 
-    public boolean removeUser(int userId) {
-        boolean res = false;
-        if (this.userIsExisted(userId)) {
-            this.userTable.remove(userId);
-            res = true;
-        }
-        return res;
-    }
-
-    public boolean highScoreBoardIsExisted(int levelId) {
-
+    private boolean highScoreBoardIsExisted(int levelId) {
         return this.boardTable.containsKey(Integer.valueOf(levelId));
     }
-
 
     public boolean createHighScoreBoard(int levelId) {
         boolean res = false;
@@ -64,7 +54,6 @@ public class DataTables {
             res = true;
         }
         return res;
-
     }
 
     public boolean updateHighScoreBoard(int userId, int levelId) {
@@ -82,12 +71,10 @@ public class DataTables {
         if (this.highScoreBoardIsExisted(levelId)) {
             return this.boardTable.get(levelId).getCSV();
         }
-        return null;
+        return "";
     }
 
-
-    public boolean sessionIsExisted(String sessionId) {
-
+    private boolean sessionIsExisted(String sessionId) {
         return this.sessionTable.containsKey(sessionId);
     }
 
@@ -109,46 +96,37 @@ public class DataTables {
     }
 
     public int getUserIdBySession(String sessionId) {
+        int res = -1;
         if (this.sessionIsValid(sessionId)) {
-            return this.sessionTable.get(sessionId).getUserId();
-        }
-        return -1;
-    }
-
-    public boolean removeSession(String sessionId) {
-        boolean res = false;
-        if (this.sessionIsExisted(sessionId)) {
-            this.sessionTable.remove(sessionId);
-            res = true;
+            res = this.sessionTable.get(sessionId).getUserId();
         }
         return res;
-
     }
 
     public String outputUserTable() {
-        StringBuilder res = new StringBuilder();
+        sb.setLength(0);
         for (Map.Entry<Integer, User> entry : this.userTable.entrySet()) {
-            res.append(entry.getValue().toString()).append('\n');
+            sb.append(entry.getValue().toString()).append('\n');
 
         }
-        return res.toString().trim();
+        return sb.toString().trim();
     }
 
     public String outputSessionTable() {
-        StringBuilder res = new StringBuilder();
+        sb.setLength(0);
         for (Map.Entry<String, Session> entry : this.sessionTable.entrySet()) {
-            res.append(entry.getValue().toString()).append('\n');
+            sb.append(entry.getValue().toString()).append('\n');
 
         }
-        return res.toString().trim();
+        return sb.toString().trim();
     }
 
     public String outputBoardTable() {
-        StringBuilder res = new StringBuilder();
+        sb.setLength(0);
         for (Map.Entry<Integer, HighScoreBoard> entry : this.boardTable.entrySet()) {
-            res.append(entry.getValue().toString()).append('\n');
+            sb.append(entry.getValue().toString()).append('\n');
 
         }
-        return res.toString().trim();
+        return sb.toString().trim();
     }
 }
