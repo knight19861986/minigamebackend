@@ -8,12 +8,14 @@ public class Session {
     private final String sessionId;
     private final User user;
     private long expiryTime;
+    private final StringBuilder sb;
 
     public Session(User user) {
         UUID uuid = UUID.randomUUID();
         this.sessionId = uuid.toString();
         this.user = user;
         this.expiryTime = System.currentTimeMillis() + 1000 * 60 * 10;
+        this.sb = new StringBuilder();
     }
 
     private void visited() {
@@ -37,11 +39,10 @@ public class Session {
 
     @Override
     public String toString() {
-        StringBuilder res = new StringBuilder();
-        res.append("SessionId: " + sessionId + "\n");
-        res.append("UserId: " + user.getUserId() + "\n");
-        res.append("ExpiryTime: " + Utils.timestampToDatetime(expiryTime) + "\n" + "\n");
-        return res.toString();
+        sb.append("SessionId: " + sessionId + "\n");
+        sb.append("UserId: " + user.getUserId() + "\n");
+        sb.append("ExpiryTime: " + Utils.timestampToDatetime(expiryTime) + "\n" + "\n");
+        return sb.toString();
     }
 
 }

@@ -11,12 +11,14 @@ public class User {
     private Map<Integer, Integer> scores;
     private final long createTime;
     private long updateTime;
+    private final StringBuilder sb;
 
     public User(int userId) {
         this.userId = userId;
         this.scores = new ConcurrentHashMap<Integer, Integer>();
         this.createTime = System.currentTimeMillis();
         this.updateTime = System.currentTimeMillis();
+        this.sb = new StringBuilder();
     }
 
     public int getUserId() {
@@ -43,17 +45,16 @@ public class User {
 
     @Override
     public String toString() {
-        StringBuilder res = new StringBuilder();
-        res.append("UserId: " + userId + "\n");
-        res.append("CreateTime: " + Utils.timestampToDatetime(createTime) + "\n");
-        res.append("UpdateTime: " + Utils.timestampToDatetime(updateTime) + "\n");
+        sb.setLength(0);
+        sb.append("UserId: " + userId + "\n");
+        sb.append("CreateTime: " + Utils.timestampToDatetime(createTime) + "\n");
+        sb.append("UpdateTime: " + Utils.timestampToDatetime(updateTime) + "\n");
         for (Map.Entry<Integer, Integer> entry : this.scores.entrySet()) {
-            res.append("LevelId: " + entry.getKey() + " ->");
-            res.append("Score: " + entry.getValue() + "\n");
+            sb.append("LevelId: " + entry.getKey() + " ; ");
+            sb.append("Score: " + entry.getValue() + "\n");
         }
-        res.append("\n");
+        sb.append("\n");
 
-        return res.toString();
+        return sb.toString();
     }
-
 }

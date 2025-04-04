@@ -12,7 +12,7 @@ public class HighScoreBoard {
 
     private int levelId;
     private final int boardMaxSize = 15;
-    private List<User> topScoreUsers;
+    private final List<User> topScoreUsers;
     private Map<Integer, Integer> topScoreUserRanks;
     private final StringBuilder sb;
 
