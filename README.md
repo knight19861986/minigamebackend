@@ -28,7 +28,7 @@ The handler is main.java.AdminHandler, with an endpoint of
 ```
 http://localhost:8081/admin?check=<OPTION>
 ```
-The <OPTION> could be the followings:  
+The OPTION could be the followings:  
 * sessions  
 * users  
 * boards
